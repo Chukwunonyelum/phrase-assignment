@@ -3,7 +3,9 @@
 ## Overview
 
 This project automates the deployment of a highly available, secure NGINX web server infrastructure on AWS using Infrastructure as Code (Terraform) and Configuration Management (Ansible). The architecture includes HTTPS support, automated scaling, and secure access patterns with a bastion host for secure access to private instances.
-**What This Deploys**
+
+
+## What This Deploys
 
 - Networking: VPC with public and private subnets across three Availability Zones
 
