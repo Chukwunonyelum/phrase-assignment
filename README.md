@@ -13,6 +13,8 @@ This project automates the deployment of a **highly available, secure NGINX web 
 - **Access**: Bastion host in public subnet for secure SSH access
 - **DNS**: Optional Route 53 configuration for custom domains
 - **Monitoring**: Health checks at `/phrase` endpoint
+  ![Blank diagram](https://github.com/user-attachments/assets/6516401b-eb8d-42e0-9fde-c80d1a4d3790)
+
 
 ## Architecture Approach
 
