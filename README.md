@@ -2,18 +2,41 @@
 
 ## Overview
 
-This project automates the deployment of a **highly available, secure NGINX web server infrastructure** on AWS using Infrastructure as Code (Terraform) and Configuration Management (Ansible). The architecture includes HTTPS support, automated scaling, and secure access patterns.
+This project automates the deployment of a highly available, secure NGINX web server infrastructure on AWS using Infrastructure as Code (Terraform) and Configuration Management (Ansible). The architecture includes HTTPS support, automated scaling, and secure access patterns with a bastion host for secure access to private instances.
+What This Deploys
 
-## What This Deploys
+    Networking: VPC with public and private subnets across three Availability Zones
 
-- **Networking**: VPC with public and private subnets across three Availability Zones
-- **Load Balancing**: Internet-facing Application Load Balancer (ALB) with HTTP→HTTPS redirect
-- **Security**: HTTPS termination at ALB with AWS ACM certificate
-- **Compute**: Auto Scaling Group running NGINX in Docker containers on EC2 instances
-- **Access**: Bastion host in public subnet for secure SSH access
-- **DNS**: Optional Route 53 configuration for custom domains
-- **Monitoring**: Health checks at `/phrase` endpoint
-  ![Blank diagram](https://github.com/user-attachments/assets/6516401b-eb8d-42e0-9fde-c80d1a4d3790)
+    Load Balancing: Internet-facing Application Load Balancer (ALB) with HTTP→HTTPS redirect
+
+    Security: HTTPS termination at ALB with AWS ACM certificate
+
+    Compute: Auto Scaling Group running NGINX in Docker containers on EC2 instances
+
+    Secure Access: Bastion host in public subnet as secure gateway to private instances
+
+    DNS: Optional Route 53 configuration for custom domains
+
+    Monitoring: Health checks at /phrase endpoint
+
+Secure Access Architecture
+Bastion Host Implementation
+
+The bastion host serves as a secure jump server that provides controlled access to instances in private subnets without exposing them directly to the internet
+
+Security Features:
+
+    No public IPs on private instances
+
+    Bastion-only access - only the bastion can initiate SSH connections to private instances
+
+    IP restrictions - bastion only accepts SSH from your specific IP address
+
+    No direct internet access for private instances
+
+    Audit trail - all access goes through a single controlled point
+![Blank diagra1)](https://github.com/user-attachments/assets/8ef46658-57ef-44c9-85bf-7fec193bb1b7)
+
 
 
 ## Architecture Approach
