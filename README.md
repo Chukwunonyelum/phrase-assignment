@@ -18,23 +18,8 @@ What This Deploys
    DNS: Optional Route 53 configuration for custom domains
 
    Monitoring: Health checks at /phrase endpoint
-
-**Secure Access Architecture
-Bastion Host Implementation**
-
-The bastion host serves as a secure jump server that provides controlled access to instances in private subnets without exposing them directly to the internet
-
-Security Features:
-
-   No public IPs on private instances
-    
-   Bastion-only access - only the bastion can initiate SSH connections to private instances
-
-   IP restrictions - bastion only accepts SSH from your specific IP address
-
-   No direct internet access for private instances
-
-   Audit trail - all access goes through a single controlled point
+      
+ 
 ![Blank diagra1)](https://github.com/user-attachments/assets/8ef46658-57ef-44c9-85bf-7fec193bb1b7)
 
 
@@ -45,6 +30,7 @@ Security Features:
 2. **Terraform** generates dynamic Ansible inventory and configuration
 3. **Ansible** configures NGINX containers through the bastion host
 4. **ALB** distributes traffic to healthy instances across AZs
+5. **Bastion-Host**  serves as a secure jump server that provides controlled access to instances in private subnets
 
 ## Repository Structure
 
