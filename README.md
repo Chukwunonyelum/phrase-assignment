@@ -3,21 +3,21 @@
 ## Overview
 
 This project automates the deployment of a highly available, secure NGINX web server infrastructure on AWS using Infrastructure as Code (Terraform) and Configuration Management (Ansible). The architecture includes HTTPS support, automated scaling, and secure access patterns with a bastion host for secure access to private instances.
-What This Deploys
+**What This Deploys**
 
-   Networking: VPC with public and private subnets across three Availability Zones
+- Networking: VPC with public and private subnets across three Availability Zones
 
-   Load Balancing: Internet-facing Application Load Balancer (ALB) with HTTP→HTTPS redirect
+- Load Balancing: Internet-facing Application Load Balancer (ALB) with HTTP→HTTPS redirect
 
-   Security: HTTPS termination at ALB with AWS ACM certificate
+- Security: HTTPS termination at ALB with AWS ACM certificate
 
-   Compute: Auto Scaling Group running NGINX in Docker containers on EC2 instances
+- Compute: Auto Scaling Group running NGINX in Docker containers on EC2 instances
 
-   Secure Access: Bastion host in public subnet as secure gateway to private instances
+- Secure Access: Bastion host in public subnet as secure gateway to private instances
 
-   DNS: Optional Route 53 configuration for custom domains
+- DNS: Optional Route 53 configuration for custom domains
 
-   Monitoring: Health checks at /phrase endpoint
+- Monitoring: Health checks at /phrase endpoint
       
  
 ![Blank diagra1)](https://github.com/user-attachments/assets/8ef46658-57ef-44c9-85bf-7fec193bb1b7)
