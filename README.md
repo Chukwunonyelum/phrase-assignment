@@ -21,8 +21,8 @@ This project automates the deployment of a highly available, secure NGINX web se
 
 - Monitoring: Health checks at /phrase endpoint
       
- 
-![Blank diagra1)](https://github.com/user-attachments/assets/8ef46658-57ef-44c9-85bf-7fec193bb1b7)
+ ![PHRASE](https://github.com/user-attachments/assets/d231137f-757f-4839-9b32-125eefe09ed6)
+
 
 
 
@@ -227,7 +227,7 @@ cd terraform
 terraform destroy -auto-approve
 ```
 
-## Production Recommendations
+## Recommendations or Potential Future Improvements
 
 ### Security Enhancements
 - Implement end-to-end TLS with AWS Private CA
@@ -253,12 +253,3 @@ terraform destroy -auto-approve
 - [AWS ALB Documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)
 - [Route 53 DNS Management](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html)
 
-## Support
-
-For issues related to:
-- **Terraform**: Check plan output and validate configurations
-- **Ansible**: Run with `-vvv` flag for verbose output
-- **AWS**: Verify IAM permissions and service limits
-- **Network**: Check security groups and NACL configurations
-
-This deployment provides a production-ready foundation for web applications with built-in security, scalability, and automation capabilities.
