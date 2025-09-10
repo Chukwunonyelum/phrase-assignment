@@ -77,21 +77,17 @@ chmod 600 ~/.ssh/my-key.pem
 Create or update `terraform.tfvars` with your specific values:
 
 ```hcl
-region = "us-east-1"
-vpc_cidr = "10.0.0.0/16"
-public_subnet_cidrs  = ["10.0.0.0/24","10.0.1.0/24","10.0.2.0/24"]
-private_subnet_cidrs = ["10.0.10.0/24","10.0.11.0/24","10.0.12.0/24"]
-key_name = "my-key"
-allowed_ssh_cidr = "203.0.113.10/32"  # Your public IP
-domain_name = "yourdomain.com"         # Optional
-zone_id = "Z123EXAMPLE"                # Optional
-instance_type = "t3.micro"
-desired_capacity = 3
-min_size = 3
-max_size = 5
+aws_region = "us-east-1"
+key_name   = "my-key"
+acm_cert_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxxxxx"
+ami = "ami-00ca32bbc84273381"
+private_key_path = "~/.ssh/my-key.pem"
+domain_name = "www.phrased.online"
+record_name = "www"
+acm_certificate_arn = "arn:aws:acm:us-east-1:271633506578:certificate/e6f8724e-134e-48f8-b31c-58e240ebe4a1"
+zone_id = "Z01442507MWLSYH7VB7J"
 
-# Use either the ARN below, or configure acm.tf for DNS validation
-# acm_certificate_arn = "arn:aws:acm:us-east-1:123456789012:certificate/xxxx"
+
 ```
 
 ## Deployment Instructions
