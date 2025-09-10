@@ -1,0 +1,113 @@
+---
+- name: Configure NGINX with HTTPS
+  hosts: nginx
+  become: yes
+  vars:
+    nginx_dirs:
+      - /opt/nginx
+      - /opt/nginx/certs
+
+  pre_tasks:
+    - name: Ensure Python and package tools (Amazon Linux / RHEL / Ubuntu)
+      package:
+        name:
+          - python3
+          - python3-pip
+          - curl
+        state: present
+      ignore_errors: yes
+
+    - name: Enable docker on Amazon Linux extras if available
+      command: amazon-linux-extras enable docker
+      args:
+        creates: /usr/bin/docker
+      register: extras_out
+      failed_when: false
+      changed_when: "'enabled' in extras_out.stdout"
+
+  tasks:
+    - name: Install Docker engine
+      package:
+        name: docker
+        state: present
+
+    - name: Start and enable Docker
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Install Docker SDK for Python (for Ansible docker modules)
+      pip:
+        name: docker
+        executable: pip3
+
+    - name: Create directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+      loop: "{{ nginx_dirs }}"
+
+    - name: Generate self-signed certificate if missing
+      command: >
+        openssl req -x509 -nodes -days 365 -newkey rsa:2048
+        -keyout /opt/nginx/certs/server.key
+        -out /opt/nginx/certs/server.crt
+        -subj "/CN=localhost"
+      args:
+        creates: /opt/nginx/certs/server.crt
+
+    - name: Write nginx.conf
+      copy:
+        dest: /opt/nginx/nginx.conf
+        mode: "0644"
+        content: |
+          events {}
+          http {
+            server {
+              listen 80;
+              location = /phrase {
+                return 200 "Service alive\n";
+                add_header Content-Type text/plain;
+              }
+              # Optional: redirect all other paths to HTTPS
+              location / {
+                return 301 https://$host$request_uri;
+              }
+            }
+
+            server {
+              listen 443 ssl;
+              ssl_certificate /etc/nginx/certs/server.crt;
+              ssl_certificate_key /etc/nginx/certs/server.key;
+
+              location / {
+                return 200 "Hello from HTTPS\n";
+                add_header Content-Type text/plain;
+              }
+
+              location = /phrase {
+                return 200 "Service alive\n";
+                add_header Content-Type text/plain;
+              }
+            }
+          }
+
+    - name: Pull NGINX image
+      community.docker.docker_image:
+        name: nginx:stable-alpine
+        source: pull
+
+    - name: Run NGINX container
+      community.docker.docker_container:
+        name: nginx_app
+        image: nginx:stable-alpine
+        state: started
+        restart_policy: always
+        published_ports:
+          - "80:80"
+          - "443:443"
+        volumes:
+          - /opt/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+          - /opt/nginx/certs:/etc/nginx/certs:ro
