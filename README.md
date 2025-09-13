@@ -95,7 +95,7 @@ ami = "ami-00ca32bbc84273381"
 private_key_path = "~/.ssh/my-key.pem"
 domain_name = "www.phrased.online"
 record_name = "www"
-acm_certificate_arn = "arn:aws:acm:us-east-1:271633506578:certificate/e6f8724e-134e-48f8-b31c-58e240ebe4a1"
+acm_certificate_arn = "arn:aws:acm:us-east-1:271633506578:certificate/e6f8724e-134e-48f8-b31c-58exxxxxxxx"
 zone_id = "Z01442507MWLSYH7VB7J"
 
 
